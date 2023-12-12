@@ -6,11 +6,11 @@ const {verifyToken} = require("../middleware/authMiddleware");
 const User = require("../models/user");
 
 //Pobieranie danych profilu uzytkownika
-router.get('/:username', verifyToken , async (req,res)=> {
+router.get('/', verifyToken , async (req,res)=> {
     try {
-        const user = await User.getByUsername(req.params.username);
-        console.log(user)
-        res.json(user);
+        const user = await User.getByUsername(req.username);
+        // console.log(user)
+        res.json({username: user.username});
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
