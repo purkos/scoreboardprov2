@@ -1,0 +1,30 @@
+.side-list-item
+  color: #b9b9b9
+  @apply text-primaryGray hover:text-secondaryGray py-2 px-3 w-full rounded-md duration-150 flex gap-3 items-center
+  &:hover
+    background-color: rgb(245, 245, 246)
+    i
+      color: inherit
+      transition: inherit
+      @apply duration-150
+
+  & i
+    color: #b9b9b9
+
+
+  &.active
+    @apply font-normal text-sm
+    background-color: #eaffe9
+    color: #47a738
+    & i
+      color: inherit
+
+//&::before
+    //  content: ''
+    //  position: absolute
+    //  left: -5px
+    //  top: 0
+    //  height: 100%
+    //  width: 5px
+    //  @apply bg-primaryGreen text-primaryGreen
+

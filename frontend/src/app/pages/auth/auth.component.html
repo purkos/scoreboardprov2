@@ -1,0 +1,72 @@
+<!-- Container -->
+<div class="flex flex-col  ">
+    <!-- Auth Card Container -->
+    <div class="flex items-center justify-center mx-2 my-20 ">
+        <!-- Auth Card -->
+        <div class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12
+            px-6 py-10 sm:px-10 sm:py-6
+            bg-white rounded-lg shadow-md lg:shadow-lg">
+
+            <!-- Card Title -->
+            <h2 class="text-center font-semibold text-3xl lg:text-4xl text-gray-800">
+                {{isLoginMode ? 'Login' : 'Create an Account'}}
+            </h2>
+
+            <form class="mt-10" [formGroup]="authForm" (ngSubmit)="onSubmit()" (focusin)="clearResponse()">
+                <!-- Email Input -->
+                <label for="login" class="block text-sm font-semibold text-gray-600 uppercase">Login</label>
+                <input id="login" type="text"  placeholder="login" formControlName="login"
+                       class="block w-full py-2 px-1 mt-2
+                    text-gray-600
+                    border-b-2 border-gray-100
+                    focus:text-textBlack focus:outline-none focus:border-gray-200"
+                        />
+
+                <!-- Password Input -->
+                <label for="password" class="block mt-3 text-sm font-semibold text-gray-600 uppercase">Password</label>
+                <input id="password" type="password" placeholder="password" autocomplete="current-password"
+                       formControlName="password"
+                       class="block w-full py-2 px-1 mt-2 mb-4
+                    text-gray-600
+                    border-b-2 border-gray-100
+                    focus:text-textBlack focus:outline-none focus:border-gray-200"
+                        />
+                <div class="result mt-3 py-3 px-6 font-medium rounded-md text-sm bg-primaryGreen text-cardWhite"
+                     *ngIf="responseResult">
+                    {{responseResult | uppercase}}
+                </div>
+                <div class="result mt-3 py-3 px-6 font-medium rounded-md text-sm bg-red-200 text-errorRed"
+                     *ngIf="errorResult">
+                    {{errorResult  | uppercase}}
+                </div>
+
+
+
+                <!-- Auth Button -->
+                <button
+                        class="w-full py-3 mt-10 bg-textBlack opacity-90
+                    font-medium text-white uppercase
+                    focus:outline-none hover:opacity-100 hover:shadow-none duration-150 rounded-md disabled:opacity-30"
+                        [disabled]="authForm.invalid">
+                    {{isLoginMode ? 'Login' : 'Sign up'}}
+                </button>
+
+                <!-- Another Auth Routes -->
+                <div class="flex flex-wrap mt-8 mb-4 text-sm text-center">
+                    <a href="./" class="flex-2 underline">
+                        Forgot password?
+                    </a>
+
+                    <p class="flex-1 text-gray-500 text-md mx-4 my-1">
+                        or
+                    </p>
+
+                    <p (click)="toggleMode()" routerLink="/auth/{{isLoginMode ? 'register' : 'login'}}"
+                       class="flex-2 underline hover:cursor-pointer">
+                        {{isLoginMode ?  'Create an Account' : 'Log in'}}
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

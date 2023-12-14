@@ -1,0 +1,65 @@
+<header class="flex justify-between  items-center bg-backgroundWhite h-20 py-3 px-6 thin-border-gray-b gap-3">
+    <div class="flex justify-center gap-2 items-center">
+        <img src="./assets/ScoreBoardPro.png" alt="ScoreboardPro" class="w-12">
+        <p class="text-primaryGreen text-2xl font-extrabold hover:cursor-pointer" routerLink="/">ScoreBoardPro</p>
+    </div>
+    <nav class="flex gap-20 font-medium text-md  justify-between items-center">
+        <div class="search-bar rounded-md w-72  bg-primaryBorderGrey text-textBlack thin-border-gray">
+            <i class="fa-solid fa-magnifying-glass px-2 text-gray-400 text-center "></i>
+            <input type="text"
+                   class="py-1.5 px-2 outline-0 bg-primaryBorderGrey w-5/6 rounded-md font-normal placeholder:font-normal text-primaryGray"
+                   placeholder="Search...">
+        </div>
+        <ul class="flex gap-10 relative text-sm font-normal text-gray-600">
+            <li>
+                <a routerLink="home" routerLinkActive="active" class="py-2 px-4 relative z-10 group">Home</a>
+            </li>
+            <li>
+                <a routerLink="about" routerLinkActive="active" class="py-2 px-4 relative z-10 group">About</a>
+            </li>
+            <li>
+                <a routerLink="contact" routerLinkActive="active" class="py-2 px-4 relative z-10 group">Contact</a>
+            </li>
+        </ul>
+
+
+    </nav>
+
+    <div class="flex gap-2 user-actions text-sm font-normal">
+        <div class="flex gap-2 " *ngIf="!isAuthenticated">
+            <button
+                    class="bg-primaryGreen py-2 px-4 hover:bg-secondaryGreen text-primaryBorderGrey duration-150 rounded-md"
+                    routerLink="/auth/register">
+                Sign Up
+            </button>
+            <button class="py-2 px-4 hover:bg-primaryBorderGrey duration-150 rounded-md"
+                    routerLink="/auth/login">
+                Sign In
+            </button>
+        </div>
+        <button mat-button [matMenuTriggerFor]="userMenu"
+                class="flex gap-3 items-center py-2 px-4 hover:bg-primaryBorderGrey duration-150 rounded-full"
+                *ngIf="isAuthenticated">
+            <i class="fa-solid fa-user text-2xl text-gray-600 hover:text-textBlack"></i>
+        </button>
+        <mat-menu #userMenu="matMenu" class="custom-menu text-gray-100">
+
+            <button mat-menu-item class=" ">
+                <div
+                        class="custom-menu-item flex gap-3 text-gray-600 justify-between items-center  hover:text-textBlack font-medium">
+                    <i class="fa-solid fa-address-card"></i>
+                    <span class="text-sm">Profile</span>
+                </div>
+            </button>
+            <button mat-menu-item class="" (click)="logout()">
+                <div
+                        class="custom-menu-item flex gap-3 text-gray-600 justify-between items-center  hover:text-textBlack font-medium">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span class="text-sm">Logout</span>
+                </div>
+            </button>
+        </mat-menu>
+
+
+    </div>
+</header>
