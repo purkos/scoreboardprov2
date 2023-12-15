@@ -1,0 +1,21 @@
+<form action="" class="" [formGroup]="searchForm" (ngSubmit)="onSearch()">
+    <div class="flex justify-between items-center py-4 px-4 bg-white rounded-md thin-border-gray">
+        <div class="search-bar rounded-md w-auto   text-textBlack flex gap-2">
+            <span class="w-auto">Search player by name</span>
+            <div class="flex bg-primaryBorderGrey justify-center items-center rounded-md w-full">
+                <i class="fa-solid fa-magnifying-glass px-2 text-gray-400 text-center "></i>
+                <input type="text"
+                       class="py-1.5 px-2 outline-0 bg-primaryBorderGrey w-5/6 rounded-md font-normal placeholder:font-normal text-primaryGray"
+                       placeholder="Search..."
+                    formControlName="name"
+                >
+                <button
+                        class="text-xs h-full px-2 bg-primaryGreen text-cardWhite flex items-center justify-center rounded-r-md uppercase">
+                    Search</button>
+            </div>
+        </div>
+        <div class="filters">
+            filters
+        </div>
+    </div>
+</form>

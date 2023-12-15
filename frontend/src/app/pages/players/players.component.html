@@ -1,0 +1,7 @@
+<div class="p-4">
+    <app-search-bar></app-search-bar>
+<!--    <app-player *ngFor="let player of players" [playerInfo]="player"></app-player>-->
+    <div *ngFor="let player of players">
+        <app-player [playerInfo]="player"></app-player>
+    </div>
+</div>
