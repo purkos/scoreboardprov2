@@ -1,0 +1,26 @@
+# Ignore node modules for backend and frontend
+backend/node_modules/
+frontend/node_modules/
+
+
+# Ignore build output for backend and frontend
+backend/build/
+frontend/build/
+
+
+# Ignore any generated files
+*.log
+*.pyc
+
+# Ignore editor-specific files
+.vscode/
+.idea/
+
+# Ignore local configuration files
+*.local
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore temporary files
+*.tmp
