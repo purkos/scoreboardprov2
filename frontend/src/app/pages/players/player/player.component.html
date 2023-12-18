@@ -1,125 +1,60 @@
 <div
-  class="h-fit w-64 gap-2 overflow-hidden rounded-sm rounded-xl border border-gray-200 bg-white shadow-lg"
+        class="relative h-fit w-64 gap-2 overflow-hidden rounded-sm rounded-xl border border-gray-200 bg-white shadow-lg"
 >
+  <!-- Image Section -->
+  <div
+          *ngIf="!isImageAvailable()"
+          class="flex h-64 w-64 items-center justify-center bg-gray-300"
+  >
+    <span class="text-white">No Image</span>
+  </div>
   <img
-    src="{{ playerInfo.strThumb }}"
-    alt="{{ playerInfo.strPlayer }}"
-    class=" bg-cover shadow-lg"
+          *ngIf="isImageAvailable()"
+          alt="{{ playerInfo.strPlayer }}"
+          class="w-64 bg-cover shadow-lg"
+          src="{{ playerInfo.strCutout }}"
   />
+
+  <!-- Player Information -->
   <div class="flex flex-col items-center gap-2 py-3">
-    <span class="text-lg font-bold text-textBlack">{{
-      playerInfo.strPlayer
-    }}</span>
-    <span class="text-sm text-primaryGray">{{
-      playerInfo.strNationality
-    }}</span>
+    <span class="text-lg font-bold text-textBlack">{{ playerInfo.strPlayer }}</span>
+    <span class="text-sm text-primaryGray">{{ playerInfo.strNationality }}</span>
     <span class="text-sm text-primaryGray">{{ playerInfo.strTeam }}</span>
   </div>
-  <div class="mb-4 flex items-center justify-center gap-3 text-xs font-light">
+
+  <!-- Yellow bar rotated at 45 degrees -->
+  <div
+          class="absolute top-0 right-0 z-40 h-3 w-1/3 translate-x-1/3 rotate-45 bg-yellow-500"
+          *ngIf="authService.isAuthenticated() && isAddedToFav"
+  ></div>
+
+  <!-- Action Buttons -->
+  <div class="mb-4 flex items-center justify-center gap-3 text-sm font-normal">
     <button
-      class="rounded-md border border-gray-200 px-4 py-2 shadow-md duration-150 bg-cardWhite hover:bg-borderGrey"
-    *ngIf="authService.isAuthenticated()">
+            (click)="onAddToFav(playerInfo.idPlayer)"
+            *ngIf="authService.isAuthenticated() && !isAddedToFav"
+            class="rounded-md border border-gray-200 px-4 py-2 shadow-md duration-150 bg-cardWhite hover:bg-primaryBorderGrey hover:text-textBlack"
+    >
       Add to Fav
     </button>
     <button
-      class="rounded-md border border-gray-200 px-4 py-2 shadow-md duration-150 bg-cardWhite hover:bg-borderGrey"
+            *ngIf="authService.isAuthenticated() && isAddedToFav"
+            class="rounded-md border border-gray-200 px-2 py-1 shadow-md duration-150 bg-cardWhite hover:bg-primaryBorderGrey"
+    >
+      <i class="text-base text-yellow-500 duration-150 fa fa-star"></i>
+    </button>
+    <button
+            class="rounded-md border border-gray-200 px-4 py-2 shadow-md duration-150 bg-cardWhite hover:bg-primaryBorderGrey"
     >
       Profile
     </button>
   </div>
+
+  <!-- Response Message -->
+  <div
+          *ngIf="responseMessage"
+          class="absolute top-3 left-4  z-30 rounded-md px-8 py-4 font-medium shadow-md shadow-gray-300 bg-primaryGreen text-cardWhite"
+  >
+    {{ responseMessage }}
+  </div>
 </div>
-<!--<div-->
-<!--  class="mx-auto h-full w-full rounded-sm border border-gray-200 bg-white shadow-lg h-fullmax-w-sm"-->
-<!--&gt;-->
-<!--  <div class="flex flex-col">-->
-<!--    &lt;!&ndash; Card top &ndash;&gt;-->
-<!--    <div class="flex-grow p-5">-->
-<!--      <div class="flex items-start justify-between">-->
-<!--        &lt;!&ndash; Image + name &ndash;&gt;-->
-<!--        <header>-->
-<!--          <div class="mb-2 flex">-->
-<!--            <a class="relative mr-5 inline-flex items-start" href="#0">-->
-<!--              <img-->
-<!--                class="rounded-full"-->
-<!--                src="{{ playerInfo.strThumb }}"-->
-<!--                width="64"-->
-<!--                height="64"-->
-<!--                alt="User 01"-->
-<!--              />-->
-<!--            </a>-->
-<!--            <div class="">-->
-<!--              <span-->
-<!--                class="inline-flex justify-center text-2xl font-semibold leading-snug text-textBlack hover:text-gray-900"-->
-<!--              >-->
-<!--                {{ playerInfo.strPlayer | slice:0:13}} {{playerInfo.strPlayer.length > 15 ? '...' : ''}}-->
-<!--              </span>-->
-<!--              <div-->
-<!--                class="flex flex-col items-start justify-items-start text-primaryGray gap 2"-->
-<!--              >-->
-<!--                <span>{{ playerInfo.strTeam}}</span>-->
-<!--                <span>{{ playerInfo.strNationality }}</span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </header>-->
-<!--        &lt;!&ndash; Menu button &ndash;&gt;-->
-<!--        <div class="relative inline-flex flex-shrink-0">-->
-<!--          <button-->
-<!--            class="text-gray-400 hover:text-gray-500 rounded-full focus:outline-none focus-within:ring-2ent="-->
-<!--          >-->
-<!--            <span class="sr-only">Menu</span>-->
-<!--            <svg class="h-8 w-8 fill-current" viewBox="0 0 32 32">-->
-<!--              <circle cx="16" cy="16" r="2" />-->
-<!--              <circle cx="10" cy="16" r="2" />-->
-<!--              <circle cx="22" cy="16" r="2" />-->
-<!--            </svg>-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      &lt;!&ndash; Bio &ndash;&gt;-->
-<!--      <div class="mt-2">-->
-<!--        <div class="text-sm">-->
-<!--          Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP-->
-<!--          Lover.-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; Card footer &ndash;&gt;-->
-<!--    <div class="border-t border-gray-200">-->
-<!--      <div class="flex divide-x divide-gray-200r">-->
-<!--        <a-->
-<!--          class="block flex-1 px-3 py-4 text-center text-sm font-medium text-indigo-500 hover:text-indigo-600"-->
-<!--          href="#0"-->
-<!--        >-->
-<!--          <div class="flex items-center justify-center">-->
-<!--            <svg-->
-<!--              class="mr-2 h-4 w-4 flex-shrink-0 fill-current"-->
-<!--              viewBox="0 0 16 16"-->
-<!--            >-->
-<!--              <path-->
-<!--                d="M8 0C3.6 0 0 3.1 0 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L8.9 12H8c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z"-->
-<!--              />-->
-<!--            </svg>-->
-<!--            <span>Send Email</span>-->
-<!--          </div>-->
-<!--        </a>-->
-<!--        <a-->
-<!--          class="block flex-1 px-3 py-4 text-center text-sm font-medium text-gray-600 group hover:text-gray-800"-->
-<!--          href="#0"-->
-<!--        >-->
-<!--          <div class="flex items-center justify-center">-->
-<!--            <svg-->
-<!--              class="mr-2 h-4 w-4 flex-shrink-0 fill-current text-gray-400 group-hover:text-gray-500"-->
-<!--              viewBox="0 0 16 16"-->
-<!--            >-->
-<!--              <path-->
-<!--                d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z"-->
-<!--              />-->
-<!--            </svg>-->
-<!--            <span>Edit Profile</span>-->
-<!--          </div>-->
-<!--        </a>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->

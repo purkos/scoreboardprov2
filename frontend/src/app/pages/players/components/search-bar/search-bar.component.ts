@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PlayerService } from "../../../../services/player.service";
 import { Player } from "../../../../models/player.model";
@@ -9,9 +9,10 @@ import { Player } from "../../../../models/player.model";
   styleUrls: ["./search-bar.component.sass"],
 })
 export class SearchBarComponent implements OnInit {
+  @Output() playerName = new EventEmitter<string>();
   searchForm!: FormGroup;
   private fb = inject(FormBuilder);
-  private playerService = inject(PlayerService);
+
   players!: Player[];
 
   ngOnInit() {
@@ -21,7 +22,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   public onSearch() {
-    this.playerService.setSelectedPlayer(this.searchForm.value.name)
-
+    // this.playerService.setSelectedPlayer(this.searchForm.value.name)
+    this.playerName.emit(this.searchForm.value.name);
   }
 }

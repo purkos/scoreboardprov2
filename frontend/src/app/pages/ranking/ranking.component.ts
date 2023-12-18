@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-ranking',
-  templateUrl: './ranking.component.html',
-  styleUrls: ['./ranking.component.sass']
+  selector: "app-ranking",
+  templateUrl: "./ranking.component.html",
+  styleUrls: ["./ranking.component.sass"],
 })
-export class RankingComponent {
-
-}
+export class RankingComponent {}
