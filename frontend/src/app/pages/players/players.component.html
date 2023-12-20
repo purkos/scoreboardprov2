@@ -1,6 +1,5 @@
 <div class="flex h-screen flex-col p-4">
-  <app-search-bar (playerName)="searchPlayer($event)"></app-search-bar>
-  <!--    <app-player *ngFor="let player of players" [playerInfo]="player"></app-player>-->
+  <app-search-bar (playerName)="searchPlayer($event)" (onSortBy)="sortPlayers($event)"></app-search-bar>
   <div
     aria-label="Loading..."
     role="status"

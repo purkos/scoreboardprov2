@@ -39,11 +39,26 @@ router.get("/isFav", async (req, res) => {
     const userId = parseInt(req.query.userId,10)
     const playerId = parseInt(req.query.playerId,10);
     const isFavorite = await PlayerFav.checkIfPlayerIsFavorite(userId,playerId);
-
     res.status(200).json(isFavorite)
   } catch (error) {
     console.error("Error occured: ", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+router.delete("/delFav", async (req,res)=> {
+  try {
+    const userId = parseInt(req.query.userId, 10);
+    const playerId = parseInt(req.query.playerId,10);
+    const deleted = await PlayerFav.deleteFav(userId,playerId)
+    if(deleted) {
+      res.status(200).json(true)
+    }
+  } catch(error) {
+    console.error("Error occurred: ", error);
+    res.status(500).json({message: "Internal server error"})
+  }
+})
+
 module.exports = router;
+

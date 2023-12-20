@@ -2,10 +2,11 @@ const bcrypt = require("bcrypt");
 const db = require("../config/db");
 
 class User {
-  constructor(username, password) {
+  constructor(username, password,userId) {
     this.username = username;
     // this.passwordHash = this.hashPassword(password)
     this.passwordHash = password;
+    this.userId = userId;
   }
 
   hashPassword(password) {
@@ -49,7 +50,7 @@ class User {
         [username],
       );
       if (userData) {
-        return new User(userData.username, userData.password);
+        return new User(userData.username, userData.password,userData.user_id);
       }
       return null;
     } catch (error) {

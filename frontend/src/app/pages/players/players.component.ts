@@ -30,4 +30,14 @@ export class PlayersComponent {
       },
     );
   }
+  public sortPlayers(sortBy: string) {
+    switch (sortBy) {
+      case "sortDesc":
+        this.players.sort((a, b) => a.strPlayer.localeCompare(b.strPlayer));
+        break;
+      case "sortAsc":
+        this.players.sort((a, b) => b.strPlayer.localeCompare(a.strPlayer));
+        break;
+    }
+  }
 }

@@ -26,7 +26,7 @@ export class PlayerComponent implements OnInit {
         this.isAddedToFav = true;
         setTimeout(() => {
           this.responseMessage = "";
-        }, 2000);
+        }, 1000);
       },
       (error) => console.error("Error:", error),
     );
@@ -35,13 +35,22 @@ export class PlayerComponent implements OnInit {
     this.playerService.isInFavorites(playerId).subscribe(
       (response) => {
           this.isAddedToFav = response
-          console.log(response)
       },
       (error) => {
         console.error(error);
       },
     );
 
+  }
+  onRemoveFav(playerId: string) {
+    this.playerService.removePlayerFromFav(playerId).subscribe(
+        (response)=> {
+          this.isAddedToFav = !response
+        },
+        (error) => {
+          console.error(error)
+        }
+    )
   }
   ngOnInit() {
     this.onIsInFav(this.playerInfo.idPlayer);
