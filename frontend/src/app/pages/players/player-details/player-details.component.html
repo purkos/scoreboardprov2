@@ -1,29 +1,117 @@
 <div class="flex gap-6 px-10 py-5">
-  <div class="flex w-9/12 flex-col gap-3">
+  <div class="flex w-9/12 flex-col gap-4">
     <div
-      class="flex items-center gap-10 rounded-lg px-7 py-5 shadow-md shadow-gray-200 overflow-hidden bg-cardWhite relative"
+      class="flex items-center justify-between gap-10 overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-r from-gray-200 to-gray-100 px-7 py-5 shadow-md shadow-gray-200 bg-cardWhite"
     >
+      <div class="flex items-center gap-8">
+        <div
+          *ngIf="!isImageAvailable()"
+          class="flex h-64 w-64 items-center justify-center bg-gray-300"
+        >
+          <span class="text-white">No Image</span>
+        </div>
+        <img
+          *ngIf="isImageAvailable()"
+          alt="{{ player.strPlayer }}"
+          class="z-10 w-32 rounded-full border border-gray-100"
+          src="{{ player.strThumb }}"
+        />
+        <div class="flex flex-col gap-1 text-3xl font-medium text-textBlack">
+          <span>{{ player.strPlayer }}</span>
+        </div>
+      </div>
       <div
-        *ngIf="!isImageAvailable()"
-        class="flex h-64 w-64 items-center justify-center bg-gray-300"
+        class="flex flex-col items-center gap-2 rounded-xl border border-gray-300 bg-gray-200 px-4 py-2 text-gray-700"
       >
-        <span class="text-white">No Image</span>
+        <span class="text-xs font-medium uppercase text-gray-400"
+          >social media</span
+        >
+        <ul class="flex gap-3">
+          <a href="https://{{ player.strFacebook }}" target="_blank"
+            ><li>
+              <i
+                class="text-2xl text-blue-600 fa-brands fa-square-facebook"
+              ></i></li
+          ></a>
+          <a href="https://{{ player.strInstagram }}" target="_blank"
+            ><li class="flex items-center">
+              <i
+                class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 bg-clip-text text-2xl fa-brands fa-instagram"
+              ></i></li
+          ></a>
+          <a href="https://{{ player.strTwitter }}" target="_blank"
+            ><li>
+              <i class="text-2xl text-blue-400 fa-brands fa-twitter"></i></li
+          ></a>
+        </ul>
       </div>
-      <div
-              class="bg-gradient-to-r from-green-300 to-green-200 absolute opacity-30 left-0 w-full  h-full ">
-      </div>
-      <img
-        *ngIf="isImageAvailable()"
-        alt="{{ player.strPlayer }}"
-        class="w-32 rounded-full  border border-gray-100 z-10"
-        src="{{ player.strThumb }}"
-      />
-      <div class="">name number</div>
     </div>
-    <div class="">rest inf</div>
+    <div
+      class="flex flex-col rounded-2xl border border-gray-200 shadow-md shadow-gray-200 bg-cardWhite"
+    >
+      <div class="border-b border-gray-200 px-6 py-4 team">
+        {{ player.strTeam }} here will be service for get real data
+      </div>
+      <div class="flex flex-wrap justify-around py-3">
+        <div class="my-2 flex w-1/3 flex-col items-center gap-1">
+          <span class="text-xs font-normal uppercase text-gray-400"
+            >Nationality</span
+          >
+          <span class="text-base font-medium text-textBlack">{{
+            player.strNationality
+          }}</span>
+        </div>
+        <div class="my-2 flex w-1/3 flex-col items-center gap-1">
+          <span class="text-xs font-normal uppercase text-gray-400"
+            >Date of birth</span
+          >
+          <span class="text-base font-medium text-textBlack">{{
+            player.dateBorn | date
+          }}</span>
+        </div>
+        <div class="my-2 flex w-1/3 flex-col items-center gap-1">
+          <span class="text-xs font-normal uppercase text-gray-400"
+            >Height</span
+          >
+          <span class="w-1/3 text-base font-medium text-textBlack">{{
+            player.strHeight
+          }}</span>
+        </div>
+        <div class="my-2 flex w-1/3 flex-col items-center gap-1">
+          <span class="text-xs font-normal uppercase text-gray-400"
+            >Value signed</span
+          >
+          <span class="text-base font-medium text-textBlack">{{
+            player.strSigning || "Free transfer"
+          }}</span>
+        </div>
+        <div class="my-2 flex w-1/3 flex-col items-center gap-1">
+          <span class="text-xs font-normal uppercase text-gray-400"
+            >Number</span
+          >
+          <span class="text-base font-medium text-textBlack">{{
+            player.strNumber
+          }}</span>
+        </div>
+        <div class="my-2 flex w-1/3 flex-col items-center gap-1">
+          <span class="text-xs font-normal uppercase text-gray-400"
+            >Position</span
+          >
+          <span class="text-base font-medium text-textBlack">{{
+            player.strPosition
+          }}</span>
+        </div>
+      </div>
+      <div class="border-t border-gray-200 px-6 py-2">
+        <span class="text-center text-base text-textBlack font-medium">Description</span>
+        <div class="h-80 overflow-y-auto py-3">
+          {{ player.strDescriptionEN }}
+        </div>
+      </div>
+    </div>
   </div>
   <div
-    class="h-screen w-1/3 rounded-md border border-gray-200 bg-gray-50 p-4 shadow-lg shadow-gray-200"
+    class="h-screen w-1/3 rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-xl shadow-gray-200"
   >
     stats
   </div>
