@@ -88,6 +88,15 @@ export class AuthService {
     }
   }
 
+  public getHistoryActions():Observable<any> {
+    const user = this.getUserData();
+    return this.http.get<any>(`${this.apiUrl}/user/profile?userId=${user.userId}`);
+  }
+  public deleteHistoryAction(history_id: number) {
+    const user = this.getUserData();
+    return this.http.delete<any>(`${this.apiUrl}/user/profile/delAction?historyId=${history_id}`)
+  }
+
   private isTokenExpired(token: string): null | boolean {
     const expirationDate = this.getTokenExpirationDate(token);
     return expirationDate && expirationDate < new Date();

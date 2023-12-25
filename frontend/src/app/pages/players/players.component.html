@@ -1,4 +1,4 @@
-<div class="flex h-screen flex-col p-4">
+<div class="flex mb-10 flex-col py-4 ">
   <app-search-bar (playerName)="searchPlayer($event)" (onSortBy)="sortPlayers($event)"></app-search-bar>
   <div
     aria-label="Loading..."
@@ -7,7 +7,7 @@
     *ngIf="isLoading"
   >
     <svg
-      class="h-14 w-14 animate-spin stroke-secondaryGray"
+      class="h-14 w-14 animate-spin stroke-neutral-800"
       viewBox="0 0 256 256"
     >
       <line
@@ -83,17 +83,17 @@
         stroke-width="24"
       ></line>
     </svg>
-    <span class="text-2xl font-medium text-secondaryGray">Loading...</span>
+    <span class="text-2xl font-semibold text-neutral-700">Loading...</span>
   </div>
   <div class="flex justify-center items-center">
     <span
-      class="text-2xl font-medium text-secondaryGray"
+      class="text-2xl font-semibold text-neutral-700"
       *ngIf="errorResponse"
       >{{ errorResponse }}</span
     >
   </div>
   <div
-    class="flex flex-wrap justify-items-stretch gap-2 py-10"
+    class="flex flex-wrap justify-items-start mx-auto gap-3  py-10"
     *ngIf="!errorResponse"
   >
     <div class="my-2 w-64" *ngFor="let player of players">

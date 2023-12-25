@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import {BehaviorSubject, catchError, map, Observable, throwError} from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, throwError } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { enviroment } from "../enviroment/enviroment";
 import { Player } from "../models/player.model";
@@ -26,6 +26,13 @@ export class PlayerService {
         }),
       );
   }
+  public getPlayerById(playerId: string):Observable<any> {
+    return this.http.get(`${this.apiSoccerUrl}/lookupplayer.php?id=${playerId}`).pipe(
+        map((response: any)=> {
+          return response.players[0]
+        })
+    )
+  }
   public addPlayerToFav(playerId: string): Observable<any> {
     const user = this.authService.getUserData();
     const payload = { playerId: playerId, userId: user.userId };
@@ -38,11 +45,20 @@ export class PlayerService {
           return throwError(error);
         }),
       );
-
   }
-  public isInFavorites(playerId: string):Observable<boolean>{
-      const user = this.authService.getUserData()
-      return this.http.get<boolean>(`${this.backendUrl}/player/isFav?userId=${user.userId}&playerId=${playerId}`)
+  public isInFavorites(playerId: string): Observable<boolean> {
+    const user = this.authService.getUserData();
+    return this.http.get<boolean>(
+      `${this.backendUrl}/player/isFav?userId=${user.userId}&playerId=${playerId}`,
+    );
+  }
+  public removePlayerFromFav(playerId: string): Observable<any> {
+    const user = this.authService.getUserData();
+    return this.http.delete(`${this.backendUrl}/player/delFav?userId=${user.userId}&playerId=${playerId}`)
   }
 
+  public getFavoritePlayers(): Observable<any> {
+    const user = this.authService.getUserData();
+    return this.http.get<any>(`${this.backendUrl}/player/favorites?userId=${user.userId}`)
+  }
 }

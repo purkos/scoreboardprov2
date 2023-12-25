@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-    selector'app-sidenav'v",
-    templateUrl'./sidenav.component.html'l",
-    styleUrls:'./sidenav.component.sass's"],
+    selector:'app-sidenav',
+    templateUrl:'./sidenav.component.html',
+    styleUrls:['./sidenav.component.sass']
 })
 export class SidenavComponent {
 }

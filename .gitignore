@@ -3,6 +3,8 @@ backend/node_modules/
 frontend/node_modules/
 
 
+
+
 # Ignore build output for backend and frontend
 backend/build/
 frontend/build/
@@ -24,3 +26,4 @@ frontend/build/
 
 # Ignore temporary files
 *.tmp
+/frontend/.angular/

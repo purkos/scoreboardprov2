@@ -1,0 +1,52 @@
+<div
+  class="h-80 w-full rounded-xl bg-white px-2 text-rhino-900 shadow-lg shadow-neutral-200 border-1 border-mercury-100"
+>
+  <div class="flex items-center justify-between p-3">
+    <span class="flex justify-center py-4 text-lg font-semibold"
+      >History of actions</span
+    >
+    <select class="h-10 rounded-md px-2 border-primary focus:outline-none" #sort
+            (change)="sortHistoryActions(sort.value)">
+      <option value="" disabled selected hidden>Sort by</option>
+      <option value="sortDesc">Date &nearr;</option>
+      <option value="sortAsc">Date &searr;</option>
+    </select>
+  </div>
+  <div class="h-60 overflow-y-scroll py-2 actions">
+    <ul class="flex flex-col py-1">
+      <li
+        *ngFor="let action of actionsHistory; let i = index"
+        class="relative flex items-center justify-between rounded-lg px-2 text-xs duration-150 py-1.5 hover:cursor-pointer"
+        [ngClass]="{ 'bg-rhino-50': i % 2 === 0 }"
+      >
+        <div class="flex items-center justify-between gap-2">
+          <i
+            class="flex items-center text-xl fi fi-bs-person-circle-plus"
+            *ngIf="action.short_desc === 'APF'"
+          ></i>
+          <i
+            class="flex items-center text-xl fi fi-bs-person-circle-minus"
+            *ngIf="action.short_desc === 'DPF'"
+          ></i>
+          <span> {{ action.action_description }}</span>
+        </div>
+        <span class="text-xs font-extralight">{{
+          action.timestamp | date: "short"
+        }}</span>
+        <i
+          class="mr-3 flex items-center font-semibold fi fi-br-menu-dots"
+          mat-button
+          [matMenuTriggerFor]="deleteActionMenu"
+        ></i>
+        <mat-menu #deleteActionMenu="matMenu">
+          <button
+            (click)="deleteAction(action.history_id)"
+            class="w-full text-sm font-semibold uppercase"
+          >
+            delete
+          </button>
+        </mat-menu>
+      </li>
+    </ul>
+  </div>
+</div>

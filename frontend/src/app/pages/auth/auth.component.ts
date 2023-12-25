@@ -63,14 +63,6 @@ export class AuthComponent implements OnInit {
         (response) => {
           if (response.token) {
             this.responseResult = "logged succesfully. you will be redirected!";
-            // console.log(response.token)
-            // this.authService.setToken(response.token)
-            // this.authService.getUserData(response.token).subscribe((response)=>{
-            //   this.authService.setUserData(response)
-            // },(error)=>{
-            //   console.error(error)
-            // })
-            // console.log(response.token)
 
             setTimeout(() => {
               this.router.navigate(["/"]);

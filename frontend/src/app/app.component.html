@@ -1,20 +1,19 @@
-<div class="flex flex-col text-textBlack h-screen overflow-hidden">
-    <!-- Sticky Header -->
-    <div class="w-full z-10 fixed top-0">
-        <app-header></app-header>
+<div class="flex h-screen flex-col overflow-hidden text-textBlack font-saira">
+  <!-- Sticky Header -->
+  <div class="fixed top-0 z-10 w-full">
+    <app-header></app-header>
+  </div>
+
+  <!-- Main Content Area with Sidebar -->
+  <div class="mt-20 flex">
+    <!-- Sticky Sidebar -->
+    <div class="fixed h-full w-64 overflow-y-auto">
+      <app-sidenav></app-sidenav>
     </div>
 
-    <!-- Main Content Area with Sidebar -->
-    <div class="flex mt-20">
-        <!-- Sticky Sidebar -->
-        <div class="fixed w-64 h-full overflow-y-auto">
-            <app-sidenav></app-sidenav>
-        </div>
-
-        <!-- Router Outlet Content -->
-        <div class=" ml-64 py-4 px-8 bg-gray-50 overflow-y-auto w-full h-screen">
-            <router-outlet class=""></router-outlet>
-        </div>
+    <!-- Router Outlet Content -->
+    <div class="ml-64  w-full overflow-y-scroll h-screen mb-12 bg-rhino-background px-5 py-4">
+      <router-outlet ></router-outlet>
     </div>
+  </div>
 </div>
-

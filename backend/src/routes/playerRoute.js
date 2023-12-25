@@ -4,6 +4,7 @@ const db = require("../config/db");
 const { verifyToken } = require("../middleware/authMiddleware");
 const PlayerRating = require("../models/playerRating");
 const PlayerFav = require("../models/playerFav");
+const HistoryActions = require("../models/historyActions");
 
 //Pobieranie danych profilu uzytkownika
 router.post("/playerRate", async (req, res) => {});
@@ -20,6 +21,12 @@ router.post("/addToFav", async (req, res) => {
         .json({ error: "You have already player in favorites" });
     }
     const playerFav = new PlayerFav(userId, playerIdAsInt);
+    const historyActions = new HistoryActions(
+      userId,
+      "Added player to favorites",
+      "APF",
+    );
+    await historyActions.save();
     const saved = playerFav.save();
     if (saved) {
       res.status(200).json({ message: "Player added to favorites" });
@@ -36,29 +43,48 @@ router.post("/addToFav", async (req, res) => {
 
 router.get("/isFav", async (req, res) => {
   try {
-    const userId = parseInt(req.query.userId,10)
-    const playerId = parseInt(req.query.playerId,10);
-    const isFavorite = await PlayerFav.checkIfPlayerIsFavorite(userId,playerId);
-    res.status(200).json(isFavorite)
+    const userId = parseInt(req.query.userId, 10);
+    const playerId = parseInt(req.query.playerId, 10);
+    const isFavorite = await PlayerFav.checkIfPlayerIsFavorite(
+      userId,
+      playerId,
+    );
+    res.status(200).json(isFavorite);
   } catch (error) {
     console.error("Error occured: ", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
-router.delete("/delFav", async (req,res)=> {
+router.get("/favorites", async (req, res) => {
   try {
     const userId = parseInt(req.query.userId, 10);
-    const playerId = parseInt(req.query.playerId,10);
-    const deleted = await PlayerFav.deleteFav(userId,playerId)
-    if(deleted) {
-      res.status(200).json(true)
-    }
-  } catch(error) {
-    console.error("Error occurred: ", error);
-    res.status(500).json({message: "Internal server error"})
+    const favList = await PlayerFav.getFavoritePlayers(userId);
+    res.status(200).json(favList);
+  } catch (error) {
+    console.error("Error occured: ", error);
+    res.status(500).json({ message: "Internal server error" });
   }
-})
+});
+
+router.delete("/delFav", async (req, res) => {
+  try {
+    const userId = parseInt(req.query.userId, 10);
+    const playerId = parseInt(req.query.playerId, 10);
+    const deleted = await PlayerFav.deleteFav(userId, playerId);
+    const historyActions = new HistoryActions(
+      userId,
+      "Deleted player from favorites",
+      "DPF",
+    );
+    await historyActions.save();
+    if (deleted) {
+      res.status(200).json(true);
+    }
+  } catch (error) {
+    console.error("Error occurred: ", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 module.exports = router;
-
